@@ -3,7 +3,7 @@ import z from "zod";
 
 import { nextTuesday } from "./util";
 
-dotenv.config();
+dotenv.config({ path: `.env.local` });
 
 const ZTeamMember = z.array(
   z.object({
@@ -19,6 +19,7 @@ export const CalendarId = process.env.CALENDAR_ID;
 export const WeeksCount = process.env.CALENDAR_WEEKS_COUNT
   ? Number(process.env.CALENDAR_WEEKS_COUNT)
   : 6;
+console.log(process.env.CALENDAR_TEAM_MEMBERS);
 export const TeamMembers = process.env.CALENDAR_TEAM_MEMBERS
-  ? ZTeamMember.parse(JSON.parse(process.env.CALENDAR_TEAM_MEMBERS) || [])
+  ? ZTeamMember.parse(JSON.parse(process.env.CALENDAR_TEAM_MEMBERS).members)
   : [];
